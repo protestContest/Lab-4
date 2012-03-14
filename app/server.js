@@ -5,7 +5,7 @@ var template = require('./template')
 var client = redis.createClient();
 
 http.createServer(function (req, res) {
-    res.writeHead(200, {'Content-Type': 'text/html'});
+    res.writeHead(200, {'Content-Type': 'text/plain'});
 
     client.mget(['awesome', 'cool', 'rad', 'gnarly', 'groovy'], function(err, values) {
     	var awesome = values[0] || '0';
@@ -14,14 +14,12 @@ http.createServer(function (req, res) {
     	var gnarly = values [3] || '0';
     	var groovy = values[4] || '0';
 
-        res.end(template.fill(0, values));
-
-    	// res.end('Awesome:\t' + awesome + '\n' +
-    	// 		'Cool:\t\t' + cool + '\n' +
-    	// 		'Rad:\t\t' + rad + '\n' +
-    	// 		'Gnarly:\t\t' + gnarly + '\n' +
-    	// 		'Groovy:\t\t' + groovy
-    	// );
+        res.end('Awesome:\t' + awesome + '\n' +
+    			'Cool:\t\t' + cool + '\n' +
+    			'Rad:\t\t' + rad + '\n' +
+    			'Gnarly:\t\t' + gnarly + '\n' +
+    			'Groovy:\t\t' + groovy
+    	);
     });
 
 }).listen(3000);
